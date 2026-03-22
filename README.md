@@ -2,7 +2,7 @@
 vibe coded mc luncher
 # guide
 
-<p><font size=7> 1. </font></p>
+<p><font size=7>  </font></p>
 <p><font size=7> building and running luncher </font></p>
 
 <p>1. get maven</p>
@@ -12,7 +12,7 @@ vibe coded mc luncher
 <p>5. go to "target" folder after it build</p>
 <p>6. put .jar file named "vibemc' on desktop (or leave it in folder) and run it</p>
 
-<p><font size=7> 2. </font></p>
+<p><font size=7>  </font></p>
 <p><font size=7> adding account </font></p>
 
 <p>1. click "+"</p>

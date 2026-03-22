@@ -1,9 +1,7 @@
 # VibeMC
 vibe coded mc luncher
-# guide
 
-<p><font size=7>  </font></p>
-<p><font size=7> building and running luncher </font></p>
+# building and running luncher
 
 <p>1. get maven</p>
 <p>2. get luncher files</p>
@@ -12,14 +10,13 @@ vibe coded mc luncher
 <p>5. go to "target" folder after it build</p>
 <p>6. put .jar file named "vibemc' on desktop (or leave it in folder) and run it</p>
 
-<p><font size=7>  </font></p>
-<p><font size=7> adding account </font></p>
+# adding account
 
 <p>1. click "+"</p>
 <p>2. use login with microsoft or use auto token from mc luncher (if you have mc luncher, ! this option may not work !)</p>
 <p>if you have https://github.com/Eglijohn/brew-bot-public you can take folder with your mc name and token from "tokens" folder and use "open folder (brewbot)" where you can put folder with mc name with tokens inside</p>
 
-<p><font size=7> this luncher is good bcs: </font></p>
+# this luncher is good bcs: 
 
 <p>- good config</p>
 <p>- easy mod search (search tab with mods)</p>

@@ -1,5 +1,7 @@
 # VibeMC
 vibe coded mc luncher
+<img width="1826" height="1020" alt="vibemc4" src="https://github.com/user-attachments/assets/470d50bc-bf4f-4cad-b45e-f53673a65850" />
+
 
 # building and running luncher
 <p>1. get maven and jdk-25.0.2.10</p>

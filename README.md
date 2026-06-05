@@ -12,10 +12,13 @@ vibe coded mc luncher
 
 # features:
 - easy mod download
+- 
 <img width="1188" height="1026" alt="vibemc2" src="https://github.com/user-attachments/assets/cc70c74c-0574-418e-a347-7e51b2e2a41a" />
 - good settings
+- 
 <img width="1191" height="999" alt="vibemc1" src="https://github.com/user-attachments/assets/f41bd61b-7eb9-4bf2-9300-bdf4f440d785" />
 - some console
+- 
 <img width="957" height="571" alt="vibemc3" src="https://github.com/user-attachments/assets/79fbe17f-d702-40cf-a49f-b6208b750269" />
 
 

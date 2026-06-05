@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.vibemc</groupId>
+    <artifactId>vibemc-launcher</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!--
+            Target Java 21 bytecode so the fat-jar runs on Java 21+ (what MC 1.21.4 needs).
+            The compiler can be Java 25; -release 21 just sets the output class format.
+            Shade plugin 3.5.2 handles Java 21 class files without any ASM issues.
+        -->
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- FlatLaf dark theme -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <!-- Gson for JSON parsing -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+                Explicitly pin maven-compiler-plugin 3.13.0.
+                Maven 3.8.x ships with default plugin versions from ~2013 (3.1, 2.6, etc.)
+                that refuse to compile with Java 25 compiler toolchain.
+                3.13.0 supports the -release flag up to Java 25 and works with Java 25 JVM.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>21</release>
+                </configuration>
+            </plugin>
+
+            <!--
+                Pin maven-resources-plugin.
+                Default version in Maven 3.8.x super-POM is 2.6 — too old for Java 25 JVM.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+
+            <!--
+                Pin maven-jar-plugin.
+                Default version 2.4 fails on Java 25 JVM when generating MANIFEST.MF.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+            </plugin>
+
+            <!-- Fat jar with all deps bundled -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <finalName>VibeMC</finalName>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>dev.vibemc.Main</mainClass>
+                                    <manifestEntries>
+                                        <!--
+                                            Runtime access to com.sun.management.OperatingSystemMXBean.
+                                            Tells the JVM this unnamed-module JAR needs the export.
+                                            Without this, Settings.physicalRamMb() silently returns 0 on
+                                            strict-module JVM configs (non-fatal, but wrong RAM defaults).
+                                        -->
+                                        <Add-Exports>jdk.management/com.sun.management=ALL-UNNAMED</Add-Exports>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
